@@ -1,2 +1,2 @@
-python Discord.py &
-python Slack.py &
+python lib/Discord.py &
+python lib/Slack.py &
