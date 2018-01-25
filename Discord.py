@@ -1,8 +1,8 @@
 from slackclient import SlackClient
 import sys
+import discord
+import asyncio
 import logging
-import requests
-import json
 from config import *
 
 logger = logging.getLogger(__name__)
@@ -16,32 +16,34 @@ handler.setFormatter(formatter)
 
 logger.addHandler(handler)
 
+
+if DiscordApiKey == "":
+	logger.error("There wasn't an API key for Discord specified. Quitting...")
+	sys.exit(1)
+
 if SlackApiKey == "":
 	logger.error("There wasn't an API key for Slack specified. Quitting...")
 	sys.exit(1)
 
-if DiscordApiKey == "":
-	logger.error("There wasn't an API key for Discord specified. Quitting...")
-	sys.exit(1)	
-
 sc = SlackClient(SlackApiKey)
-sc.rtm_connect()
+client = discord.Client()
 
-baseURL = "https://discordapp.com/api/channels/{}/messages".format('405081669368807426')
-headers = { "Authorization":"Bot {}".format(DiscordApiKey),
-			"User-Agent":"SlackDiscordBridge (http://rteendeveloper.club, v0.1)",
-"Content-Type":"application/json", }
+@client.event
+async def on_ready():
+	logger.info('Logged in as')
+	logger.info(client.user.name)
+	logger.info(client.user.id)
+	logger.info('------')
 
-while True:
-	for slack_message in sc.rtm_read():
-		message = slack_message.get("text")
-		user = slack_message.get("user")
-		full_message = "[Slack]({}) {}".format(user,message)
-		print(full_message)
-		if not message or not user:
-			continue
-		# If message send it via Discord	
-		POSTedJSON = json.dumps ({"content":full_message})
-		r = requests.post(baseURL, headers = headers, data = POSTedJSON)
+@client.event
+async def on_message(message):
+	# we do not want the bot to reply to itself
+	if message.author == client.user:
+		return
+	# If there is a message send it via Slack
+	full_message = '[Discord]({}) {}'.format(message.author,message.content)
+	logger.info(full_message)
+	sc.api_call("chat.postMessage", channel='C3LURBNGZ', as_user=True, text=full_message)
 
 
+client.run(DiscordApiKey)
