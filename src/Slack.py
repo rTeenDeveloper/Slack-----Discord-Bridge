@@ -36,7 +36,7 @@ while True:
 	for slack_message in sc.rtm_read():
 		message = slack_message.get("text")
 		author = slack_message.get("user")
-		if not message or not author:
+		if not message or not author or author == SlackBotUserID:
 			continue
 		# If there is a message send it via Discord
 		username = sc.api_call("users.info", user=author)
