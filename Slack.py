@@ -25,21 +25,23 @@ if DiscordApiKey == "":
 	sys.exit(1)	
 
 sc = SlackClient(SlackApiKey)
+sc.rtm_connect()
 
 baseURL = "https://discordapp.com/api/channels/{}/messages".format('405081669368807426')
-headers = { "Authorization":"Bot {}".format(DiscordApiToken),
-			"User-Agent":"myBotThing (http://some.url, v0.1)",
+headers = { "Authorization":"Bot {}".format(DiscordApiKey),
+			"User-Agent":"DiscordSlackBridge (http://reddit.com/r/teendeveloper, v0.1)",
 "Content-Type":"application/json", }
 
 while True:
 	for slack_message in sc.rtm_read():
 		message = slack_message.get("text")
-		user = slack_message.get("user")
-		full_message = "[Slack]({}) {}".format(user,message)
-		print(full_message)
-		if not message or not user:
+		author = slack_message.get("user")
+		if not message or not author:
 			continue
-		# If message send it via Discord	
-		POSTedJSON = json.dumps ( {"content":full_message} )
+		# If there is a message send it via Discord
+		username = sc.api_call("users.info", user=author)
+		full_message = "[Slack]({}) {}".format(username['user']['name'],message)
+		logger.info(full_message)
+		POSTedJSON = json.dumps ({"content":full_message})
 		r = requests.post(baseURL, headers = headers, data = POSTedJSON)
 

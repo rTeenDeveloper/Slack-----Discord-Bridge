@@ -40,7 +40,7 @@ async def on_message(message):
 	# we do not want the bot to reply to itself
 	if message.author == client.user:
 		return
-	# If there is a message send it via Slack
+
 	full_message = '[Discord]({}) {}'.format(message.author,message.content)
 	logger.info(full_message)
 	sc.api_call("chat.postMessage", channel='C3LURBNGZ', as_user=True, text=full_message)
