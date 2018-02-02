@@ -1,3 +1,10 @@
+"""
+Discord.py
+
+This is the handler for Discord that posts to Slack.
+"""
+
+# Imports
 from slackclient import SlackClient
 import sys
 import discord
@@ -5,6 +12,7 @@ import asyncio
 import logging
 from config import *
 
+# Set up Logging.
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
 
@@ -16,7 +24,7 @@ handler.setFormatter(formatter)
 
 logger.addHandler(handler)
 
-
+# Check if Api Key are supplied. Else the bridge won't be able to start at all.
 if DiscordApiKey == "":
 	logger.error("There wasn't an API key for Discord specified. Quitting...")
 	sys.exit(1)
@@ -25,9 +33,11 @@ if SlackApiKey == "":
 	logger.error("There wasn't an API key for Slack specified. Quitting...")
 	sys.exit(1)
 
+# Connect to Discord and Slack.
 sc = SlackClient(SlackApiKey)
 client = discord.Client()
 
+# If logged in Log it.
 @client.event
 async def on_ready():
 	logger.info('Logged in as')
@@ -35,9 +45,10 @@ async def on_ready():
 	logger.info(client.user.id)
 	logger.info('------')
 
+# If there is a message send it to Slack
 @client.event
 async def on_message(message):
-	# we do not want the bot to reply to itself
+	# We do not want the bot to reply to itself
 	if message.author == client.user:
 		return
 
