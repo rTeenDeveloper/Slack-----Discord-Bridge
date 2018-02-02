@@ -15,7 +15,7 @@ A bridge we made for Slack to Discord. Bare in mind this is still work in progre
 * Get a Bot key from Slack and Discord
   * For Slack get it from: https://api.slack.com/apps?new_app=1
   * For Discord get it from: https://discordapp.com/developers/applications/me
-* Fill out the config
+* Fill out the config in the src folder.
 * Run the Script either by running the scripts individually, using supervisor or using the bash script.
 
 ### Help:
