@@ -55,9 +55,9 @@ async def on_message(message):
 	# Handle Channel
 	channel = ""
 	for slackChan, discordChan in channels.items():
-		if message.channel.name == discordChan:
+		if message.channel.id == discordChan:
 			channel = slackChan
-			
+
 	print(channel)
 	full_message = '[Discord]({}) {}'.format(message.author,message.content)
 	logger.info(full_message)
