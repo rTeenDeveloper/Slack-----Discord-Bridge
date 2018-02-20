@@ -39,8 +39,6 @@ sc = SlackClient(SlackApiKey)
 sc.rtm_connect()
 
 # Set up URL's and headers for Discord.
-
-baseURL = "https://discordapp.com/api/channels/{}/messages".format('405081669368807426')
 headers = { "Authorization":"Bot {}".format(DiscordApiKey),
 			"User-Agent":"DiscordSlackBridge (http://reddit.com/r/teendeveloper, v0.1)",
 "Content-Type":"application/json", }
@@ -51,9 +49,17 @@ while True:
 	for slack_message in sc.rtm_read():
 		message = slack_message.get("text")
 		author = slack_message.get("user")
+		channel = slack_message.get("channel")
 		if not message or not author or author == SlackBotUserID:
 			continue
+		# Handle Channels
+		discordChannel = ""
+		if channel in channels:
+			discordChannel = channels.get(channel)
+		else:
+			pass	
 		# If there is a message send it via Discord
+		baseURL = "https://discordapp.com/api/channels/{}/messages".format(discordChannel)
 		username = sc.api_call("users.info", user=author)
 		full_message = "[Slack]({}) {}".format(username['user']['name'],message)
 		logger.info(full_message)
