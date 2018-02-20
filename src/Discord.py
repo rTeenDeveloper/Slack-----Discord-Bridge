@@ -52,9 +52,17 @@ async def on_message(message):
 	if message.author == client.user:
 		return
 
+	# Handle Channel
+	channel = ""
+	for slackChan, discordChan in channels.items():
+		if message.channel.name == discordChan:
+			channel = slackChan
+			
+	print(channel)
 	full_message = '[Discord]({}) {}'.format(message.author,message.content)
 	logger.info(full_message)
-	sc.api_call("chat.postMessage", channel='C3LURBNGZ', as_user=True, text=full_message)
+	sc.api_call("chat.postMessage", channel=channel, as_user=True, text=full_message)
 
 
 client.run(DiscordApiKey)
+
