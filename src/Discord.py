@@ -58,6 +58,11 @@ async def on_message(message):
 		if message.channel.id == discordChan:
 			channel = slackChan
 
+	# Handle File Uploads
+	if message.attachments:
+		fileURL = message.attachments[0]['url']
+		sc.api_call("chat.postMessage", channel=channel, as_user=True, text=fileURL)
+
 	print(channel)
 	full_message = '[Discord]({}) {}'.format(message.author,message.content)
 	logger.info(full_message)
