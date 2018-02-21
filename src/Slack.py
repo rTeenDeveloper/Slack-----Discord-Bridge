@@ -47,6 +47,9 @@ headers = { "Authorization":"Bot {}".format(DiscordApiKey),
 
 while True:
 	for slack_message in sc.rtm_read():
+		if (slack_message.get("type") != "message"):
+			continue
+			
 		message = slack_message.get("text")
 		author = slack_message.get("user")
 		channel = slack_message.get("channel")
