@@ -46,26 +46,31 @@ headers = { "Authorization":"Bot {}".format(DiscordApiKey),
 # Run the Bridge 
 
 while True:
-	for slack_message in sc.rtm_read():
-		if (slack_message.get("type") != "message"):
-			continue
-			
-		message = slack_message.get("text")
-		author = slack_message.get("user")
-		channel = slack_message.get("channel")
-		if not message or not author or author == SlackBotUserID:
-			continue
-		# Handle Channels
-		discordChannel = ""
-		if channel in channels:
-			discordChannel = channels.get(channel)
-		else:
-			pass	
-		# If there is a message send it via Discord
-		baseURL = "https://discordapp.com/api/channels/{}/messages".format(discordChannel)
-		username = sc.api_call("users.info", user=author)
-		full_message = "[Slack]({}) {}".format(username['user']['name'],message)
-		logger.info(full_message)
-		POSTedJSON = json.dumps ({"content":full_message})
-		r = requests.post(baseURL, headers = headers, data = POSTedJSON)
+	try:
+		for slack_message in sc.rtm_read():
+			if (slack_message.get("type") != "message"):
+				continue
+				
+			message = slack_message.get("text")
+			author = slack_message.get("user")
+			channel = slack_message.get("channel")
+			if not message or not author or author == SlackBotUserID:
+				continue
+			# Handle Channels
+			discordChannel = ""
+			if channel in channels:
+				discordChannel = channels.get(channel)
+			else:
+				pass	
+			# If there is a message send it via Discord
+			baseURL = "https://discordapp.com/api/channels/{}/messages".format(discordChannel)
+			username = sc.api_call("users.info", user=author)
+			full_message = "[Slack]({}) {}".format(username['user']['name'],message)
+			logger.info(full_message)
+			POSTedJSON = json.dumps ({"content":full_message})
+			r = requests.post(baseURL, headers = headers, data = POSTedJSON)
+	except: 
+		logger.error('[Slack] RTM read failed! Check internet connection and restart script.')
+		break
+		sys.exit(1)
 

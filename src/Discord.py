@@ -40,10 +40,7 @@ client = discord.Client()
 # If logged in Log it.
 @client.event
 async def on_ready():
-	logger.info('Logged in as')
-	logger.info(client.user.name)
-	logger.info(client.user.id)
-	logger.info('------')
+	logger.info('[Discord] Logged in as {} ({})'.format(client.user.name, client.user.id))
 
 # If there is a message send it to Slack
 @client.event
