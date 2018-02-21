@@ -4,6 +4,10 @@ Thank you for taking time to contribute to our Community and most importantly ou
 
 Please remember to read the following guide to learn more about how we care to make our repos look clean.
 
+# Style
+
+ * Start comments with a Uppercase letter.
+ * Document your code! Seriously, how else are we supposed to know what are you doing?
 
 # Branch naming
 
