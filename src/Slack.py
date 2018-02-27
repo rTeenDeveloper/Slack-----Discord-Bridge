@@ -108,6 +108,4 @@ while True:
 		sys.exit(1)
 	except: 
 		logger.error("[Slack] RTM read failed! Check internet connection and restart script.")
-		break
-		sys.exit(1)
 
