@@ -23,6 +23,15 @@ A bridge we made for Slack to Discord. Bare in mind this is still work in progre
 * Fill out the config in the src folder.
 * Run the Script either by running the scripts individually, using supervisor or using the bash script.
 
+---
+### Channels:
+* For Slack Channel ID's can be found in the url: `https://rteendeveloper.slack.com/messages/C3LURBNGZ/`
+In this case `C3LURBNGZ` is the Channel ID
+* For Discord Channel ID's can be found by right click -> Copy ID. It should look something like this `391099113778970627`
+
+Remember! The bot has to be in each of the channels so it can receive and send messages.
+
+
 ### Help:
 
 For any Help feel free to open a issue our ask on our Slack :)
