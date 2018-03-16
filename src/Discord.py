@@ -25,13 +25,24 @@ handler.setFormatter(formatter)
 logger.addHandler(handler)
 
 # Check if Api Key are supplied. Else the bridge won't be able to start at all.
-if DiscordApiKey == "":
+if DiscordApiKey == "" and os.environ.get("DiscordApiKey") is None:
 	logger.error("There wasn't an API key for Discord specified. Quitting...")
 	sys.exit(1)
+elif DiscordApiKey == "":  
+	DiscordApiKey = os.environ['DiscordApiKey']
+else:
+	pass
 
-if SlackApiKey == "":
+if SlackApiKey == "" and os.environ.get("SlackApiKey") is None:
 	logger.error("There wasn't an API key for Slack specified. Quitting...")
 	sys.exit(1)
+elif SlackApiKey == "":  
+	SlackApiKey = os.environ['SlackApiKey']
+else:
+	pass
+
+
+
 
 # Connect to Discord and Slack.
 sc = SlackClient(SlackApiKey)
@@ -67,4 +78,5 @@ async def on_message(message):
 
 
 client.run(DiscordApiKey)
+
 

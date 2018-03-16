@@ -26,13 +26,22 @@ handler.setFormatter(formatter)
 logger.addHandler(handler)
 
 # Check if Api Key are supplied. Else the bridge won't be able to start at all.
-if SlackApiKey == "":
+
+if SlackApiKey == "" and os.environ.get("SlackApiKey") is None:
 	logger.error("There wasn't an API key for Slack specified. Quitting...")
 	sys.exit(1)
+elif SlackApiKey == "":  
+	SlackApiKey = os.environ['SlackApiKey']
+else:
+	pass
 
-if DiscordApiKey == "":
+if DiscordApiKey == "" and os.environ.get("DiscordApiKey") is None:
 	logger.error("There wasn't an API key for Discord specified. Quitting...")
-	sys.exit(1)	
+	sys.exit(1)
+elif DiscordApiKey == "":  
+	DiscordApiKey = os.environ['DiscordApiKey']
+else:
+	pass
 
 # Connect to Slack.
 sc = SlackClient(SlackApiKey)
@@ -108,4 +117,6 @@ while True:
 		sys.exit(1)
 	except: 
 		logger.error("[Slack] RTM read failed! Check internet connection and restart script.")
+
+
 
