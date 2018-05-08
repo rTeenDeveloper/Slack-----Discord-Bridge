@@ -1,5 +1,5 @@
-SlackApiKey = ""
-SlackBotUserID = ""
+SlackApiKey = "" # xoxb - xxxxxxxxxxxx
+SlackBotUserID = "" # UXXXXXXXXXX
 DiscordApiKey = ""
 log_file = "bridge.log"
 channels = {

@@ -61,7 +61,7 @@ headers = { "Authorization":"Bot {}".format(DiscordApiKey),
 try:
 	usersList = sc.api_call(
 		"users.list",
-		channel = "#general"
+		channel = userListChannel
 	)['members'] 
 except:
 	logger.error('[Slack] Failed to fetch users list! Converting mentions won\'t be available.')
