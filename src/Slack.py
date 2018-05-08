@@ -106,7 +106,7 @@ while True:
 			# If there is a message send it via Discord
 			baseURL = "https://discordapp.com/api/channels/{}/messages".format(discordChannel)
 			username = sc.api_call("users.info", user=author)
-			full_message = "[Slack]({}) {}".format(username["user"]["name"], message)
+			full_message = "[Slack]({}) {}".format(username["user"]["profile"]["display_name"], message)
 			logger.info(full_message)
 			POSTedJSON = json.dumps ({"content":full_message})
 			r = requests.post(baseURL, headers = headers, data = POSTedJSON)
@@ -115,8 +115,12 @@ while True:
 		logger.info("[Slack] Exitting..")
 		break
 		sys.exit(1)
-	except: 
-		logger.error("[Slack] RTM read failed! Check internet connection and restart script.")
+		
+	"""
+	Todo: Set up More Error Handlers!
+	"""	
+	#except: 
+	#	logger.error("[Slack] RTM read failed! Check internet connection and restart script.")
 
 
 
