@@ -98,7 +98,7 @@ while True:
 						if (usersList):
 							for user in usersList: 
 								if (user['id'] == userId):
-									userName = user['name']
+									userName = user['profile']['display_name']
 							if (not userName):
 								continue 
 							message = message.replace(userId, userName)
