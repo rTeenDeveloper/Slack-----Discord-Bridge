@@ -7,9 +7,9 @@ A bridge we made for Slack to Discord. Bare in mind this is still work in progre
 * slack client
 
 ### Installation:
-`pip install slackclient`
+`pip install requirements.txt`
 
-`python3 -m pip install -U discord.py`
+`python3 -m pip install -U discord.py` // Just in Case.
 
 ### Getting Started:
 * Get a Bot token from Slack and Discord
