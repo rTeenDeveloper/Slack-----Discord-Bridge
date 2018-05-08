@@ -13,10 +13,16 @@ A bridge we made for Slack to Discord. Bare in mind this is still work in progre
 
 ### Getting Started:
 * Get a Bot token from Slack and Discord
-  * For Slack get it from: https://api.slack.com/apps?new_app=1
-      * Add Bot as a Feature
-      * Give it a name, username
+  * For Slack you can get it by following this instructions: 
+      * Create a Slack App at: https://api.slack.com/apps?new_app=1
+      * Add Bot as a Feature / Functionality 
+      * Give it a display name, username
+      * Head over at Permissions under Scope and select
+          * Add a bot user with the username
+          * Send messages as bot username
       * Install it to your workspace
+      * Head over at OAuth and Permission
+      * Bot User OAuth Access Token will be the SlackApiKey in the config.py file!
   * For Discord get it from: https://discordapp.com/developers/applications/me
       * Bundle a bot user
   * Invite it to your server using https://discordapp.com/oauth2/authorize?client_id=<CLIENT_ID_GOES_HERE>&scope=bot&permissions=0
