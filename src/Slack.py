@@ -27,7 +27,7 @@ logger.addHandler(handler)
 
 # Check if Api Key are supplied. Else the bridge won't be able to start at all.
 
-if SlackApiKey == "" and os.environ.get("SlackApiKey") is None:
+if SlackApiKey == "":
 	logger.error("There wasn't an API key for Slack specified. Quitting...")
 	sys.exit(1)
 elif SlackApiKey == "":  
@@ -35,7 +35,7 @@ elif SlackApiKey == "":
 else:
 	pass
 
-if DiscordApiKey == "" and os.environ.get("DiscordApiKey") is None:
+if DiscordApiKey == "":
 	logger.error("There wasn't an API key for Discord specified. Quitting...")
 	sys.exit(1)
 elif DiscordApiKey == "":  
