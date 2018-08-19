@@ -52,6 +52,8 @@ headers = { "Authorization":"Bot {}".format(DiscordApiKey),
 			"User-Agent":"DiscordSlackBridge (http://reddit.com/r/teendeveloper, v0.1)",
 "Content-Type":"application/json", }
 
+fullMessage = ''
+
 # Run the Bridge 
 
 # We have to query all users in slack to map their id to their names later. Querying every message
@@ -107,10 +109,12 @@ while True:
 			baseURL = "https://discordapp.com/api/channels/{}/messages".format(discordChannel)
 			username = sc.api_call("users.info", user=author)
 			full_message = "[Slack]({}) {}".format(username["user"]["profile"]["display_name"], message)
-			logger.info(full_message)
-			POSTedJSON = json.dumps ({"content":full_message})
-			r = requests.post(baseURL, headers = headers, data = POSTedJSON)
-
+			if full_message != lastMessage:
+				logger.info(full_message)
+				POSTedJSON = json.dumps ({"content":full_message})
+				r = requests.post(baseURL, headers = headers, data = POSTedJSON)
+				lastMessage = full_message
+				
 	except KeyboardInterrupt:
 		logger.info("[Slack] Exitting..")
 		break
