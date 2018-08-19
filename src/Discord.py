@@ -73,8 +73,9 @@ async def on_message(message):
 	print(channel)
 	full_message = '[Discord]({}) {}'.format(message.author,message.content)
 		
-	if lastMessage == full_message:
+	if lastMessage != full_message:
 		logger.info(full_message)
 		sc.api_call("chat.postMessage", channel=channel, as_user=True, text=full_message)
+		lastMessage = full_message
 		
 client.run(DiscordApiKey)
