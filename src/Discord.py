@@ -41,12 +41,11 @@ elif SlackApiKey == "":
 else:
 	pass
 
-
-
-
 # Connect to Discord and Slack.
 sc = SlackClient(SlackApiKey)
 client = discord.Client()
+
+lastMessage = ''
 
 # If logged in Log it.
 @client.event
@@ -73,10 +72,9 @@ async def on_message(message):
 
 	print(channel)
 	full_message = '[Discord]({}) {}'.format(message.author,message.content)
-	logger.info(full_message)
-	sc.api_call("chat.postMessage", channel=channel, as_user=True, text=full_message)
-
-
+		
+	if lastMessage == full_message:
+		logger.info(full_message)
+		sc.api_call("chat.postMessage", channel=channel, as_user=True, text=full_message)
+		
 client.run(DiscordApiKey)
-
-
