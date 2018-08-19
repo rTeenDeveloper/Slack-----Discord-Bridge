@@ -52,7 +52,7 @@ headers = { "Authorization":"Bot {}".format(DiscordApiKey),
 			"User-Agent":"DiscordSlackBridge (http://reddit.com/r/teendeveloper, v0.1)",
 "Content-Type":"application/json", }
 
-fullMessage = ''
+lastMessage = ''
 
 # Run the Bridge 
 
